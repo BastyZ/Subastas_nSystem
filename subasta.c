@@ -27,7 +27,7 @@ typedef struct subasta {
 // Programe aca las funciones nuevaSubasta, ofrecer y adjudicar, mas
 // otras funciones que necesite.
 
-Subasta nuevaSubasta(int unidades){
+subasta nuevaSubasta(int unidades){
     Subasta subasta = (Subasta)nMalloc(sizeof(*subasta));
     subasta->monitor = nMakeMonitor();
     subasta->finalizado = 0;
@@ -35,6 +35,10 @@ Subasta nuevaSubasta(int unidades){
     subasta->count = 0;
     subasta->indexMin = 0;
     subasta.postor = (Postor)nMalloc(unidades*sizeof(*Postor));
+}
+
+int ofrecer(Subasta s, double precio){
+    // oferta un precio con la intencion de comprar elementos
 }
 
 double colecta(Postor p) {
@@ -45,6 +49,7 @@ double colecta(Postor p) {
 }
 
 double adjudicar(Subasta s, int *punidades){
+    // *punidades == *prestantes
     nEnter(s->monitor);
     *punidades = s->unidades - s->count;
     s->finalizado = 1; // convertirlo a true
