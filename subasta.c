@@ -35,7 +35,7 @@ Subasta nuevaSubasta(int unidades){
     subasta->count = 0;
     subasta->indexMin = 0;
     Postor postor1 = nMalloc(sizeof(*postor1));
-    subasta->postor = nMalloc(unidades*sizeof(*postor1));
+    subasta->postor[unidades] = nMalloc(unidades*sizeof(*postor1));
 }
 
 Postor nuevoPostor(Subasta s, int precio) {
@@ -57,7 +57,7 @@ int comparaPrecio(Subasta s, Postor p) {
 
 void cambiar(Subasta s, Postor p) {
     // Tomamos al más pequeño, lo sacamos y reemplazamos en ese lugar
-    (s->postor[s->indexMin])->estado = afuera;
+    s->postor[s->indexMin]->estado = afuera;
     s->postor[s->indexMin]->listo = 1;
     // notifico al que saco de que lo saqué
     nSignalCondition(s->postor[s->indexMin]->cond);
@@ -90,7 +90,7 @@ int ofrecer(Subasta s, double precio){
                 for (int i = 0; i < s->count; i++){
                     if(s->postor[i]->precio < s->min){
                         s->min = s->postor[i]->precio;
-                        s->minIndex = i;
+                        s->indexMin = i;
                     }
                 }
                 while (!s->finalizado && p->estado == adjudicado) {
@@ -124,7 +124,7 @@ int ofrecer(Subasta s, double precio){
         // Acá nos aseguramos de que si nos echaron retornamos 0
         if (p->listo && p->estado == afuera) return 0;
         // Para lo demás rechazamos
-        return false;
+        return 0;
     }
 }
 
