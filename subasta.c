@@ -1,11 +1,56 @@
 #include <nSystem.h>
 #include "subasta.h"
 
-struct subasta {
+typedef enum {
+    adjudicado, afuera // Adjudicado: Logra quedarse con producto
+} Estado;
+
+typedef struct postor{
+    Estado estado;
+    double precio;
+    int listo; // 0 => No está listo
+    nCondition cond;
+} *Postor;
+
+typedef struct subasta {
   // ... implemente aca el tipo Subasta ...
   // (observe que hay un "typedef struct subasta *Subasta" en subasta.h)
-};
+    int finalizado;
+    int unidades;
+    int count; // cuenta de objetos adjudicados
+    nMonitor monitor;
+    double min;
+    int indexMin;
+    int *postor; // Lista de postores que se adjudicarían unidades
+}*Subasta;
 
 // Programe aca las funciones nuevaSubasta, ofrecer y adjudicar, mas
 // otras funciones que necesite.
 
+Subasta nuevaSubasta(int unidades){
+    Subasta subasta = (Subasta)nMalloc(sizeof(*subasta));
+    subasta->monitor = nMakeMonitor();
+    subasta->finalizado = 0;
+    subasta->unidades = unidades;
+    subasta->count = 0;
+    subasta->indexMin = 0;
+    subasta.postor = (Postor)nMalloc(unidades*sizeof(*Postor));
+}
+
+double colecta(Postor p) {
+    p->listo = 1;
+    int precio = p->precio;
+    nSignalCondition(p->cond);
+    return precio;
+}
+
+double adjudicar(Subasta s, int *punidades){
+    nEnter(s->monitor);
+    *punidades = s->unidades - s->count;
+    s->finalizado = 1; // convertirlo a true
+    int ganancia;
+    for (int i=0; i < s->count; i++){
+        ganancia += colecta(s->postor[i]);
+    }
+    nExit(s->monitor);
+}
