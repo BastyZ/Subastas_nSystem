@@ -34,11 +34,12 @@ Subasta nuevaSubasta(int unidades){
     subasta->unidades = unidades;
     subasta->count = 0;
     subasta->indexMin = 0;
-    subasta->postor = nMalloc(unidades*sizeof(*Postor));
+    Postor postor1 = nMalloc(sizeof(*postor1));
+    subasta->postor = nMalloc(unidades*sizeof(*postor1));
 }
 
 Postor nuevoPostor(Subasta s, int precio) {
-    Postor p = nMalloc(sizeof(*Postor));
+    Postor p = nMalloc(sizeof(*p));
     p->estado = afuera;
     p->precio = precio;
     p->listo = 0;
