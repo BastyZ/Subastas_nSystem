@@ -27,18 +27,18 @@ typedef struct subasta {
 // Programe aca las funciones nuevaSubasta, ofrecer y adjudicar, mas
 // otras funciones que necesite.
 
-subasta nuevaSubasta(int unidades){
-    Subasta subasta = (Subasta)nMalloc(sizeof(*subasta));
+Subasta nuevaSubasta(int unidades){
+    Subasta subasta = nMalloc(sizeof(*subasta));
     subasta->monitor = nMakeMonitor();
     subasta->finalizado = 0;
     subasta->unidades = unidades;
     subasta->count = 0;
     subasta->indexMin = 0;
-    subasta.postor = (Postor)nMalloc(unidades*sizeof(*Postor));
+    subasta->postor = nMalloc(unidades*sizeof(*Postor));
 }
 
-postor nuevoPostor(Subasta s, int precio) {
-    Postor p = (Postor)nMalloc(sizeof(*Postor));
+Postor nuevoPostor(Subasta s, int precio) {
+    Postor p = nMalloc(sizeof(*Postor));
     p->estado = afuera;
     p->precio = precio;
     p->listo = 0;
@@ -56,7 +56,7 @@ int comparaPrecio(Subasta s, Postor p) {
 
 void cambiar(Subasta s, Postor p) {
     // Tomamos al más pequeño, lo sacamos y reemplazamos en ese lugar
-    s->postor[s->indexMin]->estado = afuera;
+    (s->postor[s->indexMin])->estado = afuera;
     s->postor[s->indexMin]->listo = 1;
     // notifico al que saco de que lo saqué
     nSignalCondition(s->postor[s->indexMin]->cond);
@@ -98,7 +98,6 @@ int ofrecer(Subasta s, double precio){
             } else {
                 if (!comparaPrecio(s, p)) {
                     // La oferta es muy pequeña, se rechaza
-                    nNotifyAll(s->monitor);
                     return 0;
                 } else {
                     // se adjudica un elemento
