@@ -90,8 +90,9 @@ int ofrecer(Subasta s, double precio){
                 s->postor[s->count++] = p;
                 // se vuelve a establecer el mínimo
                 for (int i = 0; i < s->count; i++){
-                    if(s->postor[i]->precio < s->min){
-                        s->min = s->postor[i]->precio;
+                    aux = s->postor[i];
+                    if(aux->precio < s->min){
+                        s->min = aux->precio;
                         s->indexMin = i;
                     }
                 }
@@ -108,8 +109,9 @@ int ofrecer(Subasta s, double precio){
                     cambiar(s, p);
                     // volvemos e elegir el mínimo
                     for (int i = 0; i < s->count; i++) {
-                        if (s->postor[i]->precio < s->min) {
-                            s->min = s->postor[i]->precio;
+                        aux = s->postor[i];
+                        if(aux->precio < s->min){
+                            s->min = aux->precio;
                             s->indexMin = i;
                         }
                     }
