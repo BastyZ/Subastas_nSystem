@@ -36,6 +36,7 @@ Subasta nuevaSubasta(int unidades){
     subasta->indexMin = 0;
     Postor postor1 = nMalloc(sizeof(*postor1));
     subasta->postor[unidades] = nMalloc(unidades*sizeof(*postor1));
+    return subasta;
 }
 
 Postor nuevoPostor(Subasta s, int precio) {
@@ -44,6 +45,7 @@ Postor nuevoPostor(Subasta s, int precio) {
     p->precio = precio;
     p->listo = 0;
     p->cond = nMakeCondition(s->monitor);
+    return p;
 }
 
 int comparaPrecio(Subasta s, Postor p) {
