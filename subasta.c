@@ -144,8 +144,6 @@ int ofrecer(Subasta s, double precio){
             }
         }
         // Si llegan hasta acá, o termino la subasta o los sacaron
-        if (!s->finalizado) {return 0;} // No ha terminado aún nos sacaron
-        else{ return 1;}
     }
 }
 
