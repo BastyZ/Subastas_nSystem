@@ -141,7 +141,6 @@ int ofrecer(Subasta s, double precio){
 }
 
 double colecta(Postor p) {
-    p->listo = 1;
     int precio = p->precio;
     nSignalCondition(p->cond);
     return precio;
