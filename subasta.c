@@ -73,7 +73,7 @@ int ofrecer(Subasta s, double precio){
             nPrintf("Soy el primer oferente\n");
             nPrintf(" le paso algo del tipo %d\n", s->postor[s->count]);
             agregarPostor(&s->postor[s->count], precio, s);
-            s->postor[s->count]->estado = adjudicado;
+            *(s->postor[s->count])->estado = adjudicado;
             indice = s->count;
             nPrintf("  Creo un 'p' auxiliar\n");
             Postor p = s->postor[s->count];
