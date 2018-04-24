@@ -125,24 +125,6 @@ int nMain() {
   }
   nPrintf("test aprobado\n");
   nPrintf("-------------\n");
-  nPrintf("%d subastas en paralelo\n", M*2);
-  nPrintf("(tomo alrededor de 20 segundos en mi computador)\n");
-  for (k=1; k<M; k++) {
-    tasks1[k]= nEmitTask(test1, -1);
-    tasks2[k]= nEmitTask(test2, -1);
-  }
-  tasks1[0]= nEmitTask(test1, 1);
-  tasks2[0]= nEmitTask(test2, 1);
-  nWaitTask(tasks1[0]);
-  nWaitTask(tasks2[0]);
-  nPrintf("Enterrando tareas.  Cada '.' son 30 tareas enterradas.\n");
-  for (k=1; k<M; k++) {
-    nWaitTask(tasks1[k]);
-    nWaitTask(tasks2[k]);
-    if (k%10==0) nPrintf(".");
-  }
-  nPrintf("\ntest aprobado\n");
-  nPrintf(  "-------------\n");
   nPrintf("Felicitaciones: paso todos los tests\n");
   return 0;
 }
