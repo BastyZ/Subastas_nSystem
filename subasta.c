@@ -95,12 +95,10 @@ int ofrecer(Subasta s, double precio){
                 // se vuelve a establecer el mínimo
                 for (int i = 0; i < s->count; i++){
                     nPrintf("    Comienzo a buscar el menor\n");
-                    Postor *aux = s->postor[i];
-                    nPrintf("    Creé un auxiliar y comparo\n");
-                    nPrintf("    El precio del auxiliar es: %d\n", **aux.precio);
-                    if(*aux->precio < s->min){
+                    if(s->postor[s->count]->precio < s->min){
                         nPrintf("    Los cambio\n");
-                        s->min = *aux->precio;
+                        s->min = s->postor[s->count]->precio;
+                        s->count++;
                         s->indexMin = i;
                     }
                     nPrintf("    Y listo\n");
