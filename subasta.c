@@ -116,9 +116,7 @@ int ofrecer(Subasta s, double precio){
                     Postor p = &s->postor[s->indexMin];
                     p->estado = afuera;
                     nPrintf("  Llamo al quese va\n");
-                    nCondition cond_aux = p->cond;
-                    nPrintf("  Con la condicion f%\n", p->cond);
-                    nSignalCondition(&cond_aux);
+                    nSignalCondition(&p->cond);
                     nPrintf("  Llamé al wn que se vá\n");
                     // se adjudica un elemento poniendose en el lugar del minimo
                     agregarPostor(&s->postor[s->indexMin], precio, s);
