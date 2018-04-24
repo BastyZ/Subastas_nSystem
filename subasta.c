@@ -121,8 +121,8 @@ int ofrecer(Subasta s, double precio){
                     nPrintf("  Me agrego\n");
                     s->estado[s->indexMin] = adjudicado;
                     nPrintf("Modifico el indice\n");
-                    indice = s->count;
-                    s->count++;
+                    indice = s->indexMin;
+                    s->count = s->unidades;
                     // volvemos e elegir el mínimo
                     for (int i = 0; i < s->unidades; i++){
                         nPrintf("    Comienzo a buscar el menor\n");
@@ -145,9 +145,9 @@ int ofrecer(Subasta s, double precio){
     }
 }
 
-double colecta(Postor p) {
-    int precio = p->precio;
-    nSignalCondition(p->cond);
+double colecta(Subasta s,int index) {
+    int precio = s->precio[index];
+    nSignalCondition(s->cond[index]);
     return precio;
 }
 
@@ -158,7 +158,7 @@ double adjudicar(Subasta s, int *punidades){
     s->finalizado = 1; // convertirlo a true
     int ganancia;
     for (int i=0; i < s->count; i++){
-        ganancia += colecta(s->postor[i]);
+        ganancia += colecta(s, i);
     }
     nExit(s->monitor);
 }
