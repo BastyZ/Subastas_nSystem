@@ -58,6 +58,7 @@ int ofrecer(Subasta s, double precio){
     // oferta un precio con la intencion de comprar elementos
     // Subasta s y Postor p
     // Postor p = nuevoPostor(s->postor[s->count], precio);
+    int indice;
     if (s->finalizado) {
         // La subasta ha terminado, por lo que no lo intentamos
         return 0;
@@ -68,6 +69,7 @@ int ofrecer(Subasta s, double precio){
             nPrintf("Soy el primer oferente\n");
             agregarPostor(s->postor[s->count], precio, s);
             s->postor[s->count]->estado = adjudicado;
+            indice = s->count;
             Postor p = s->postor[s->count];
             s->count++;
             s->min;
@@ -80,6 +82,7 @@ int ofrecer(Subasta s, double precio){
                 agregarPostor(s->postor[s->count], precio, s);
                 s->postor[s->count]->estado = adjudicado;
                 Postor p = s->postor[s->count];
+                indice = s->count;
                 s->count++;
                 nPrintf("    Entré a la subasta\n");
                 // se vuelve a establecer el mínimo
@@ -88,7 +91,6 @@ int ofrecer(Subasta s, double precio){
                     if( s->postor[i]->precio < s->min){
                         nPrintf("    Los cambio\n");
                         s->min = s->postor[i]->precio;
-                        s->count++;
                         s->indexMin = i;
                     }
                     nPrintf("    Y listo\n");
@@ -106,6 +108,7 @@ int ofrecer(Subasta s, double precio){
                     agregarPostor(s->postor[s->indexMin], precio, s);
                     s->postor[s->indexMin]->estado = adjudicado;
                     Postor p = s->postor[s->indexMin];
+                    indice = s->count;
                     s->count++;
                     // volvemos e elegir el mínimo
                     for (int i = 0; i < s->count; i++) {
@@ -113,7 +116,6 @@ int ofrecer(Subasta s, double precio){
                         if( s->postor[i]->precio < s->min){
                             nPrintf("    Los cambio\n");
                             s->min = s->postor[i]->precio;
-                            s->count++;
                             s->indexMin = i;
                         }
                     }
