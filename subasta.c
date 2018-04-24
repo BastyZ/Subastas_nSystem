@@ -72,7 +72,8 @@ int ofrecer(Subasta s, double precio){
             indice = s->count;
             Postor p = s->postor[s->count];
             s->count++;
-            s->min;
+            s->min = precio;
+            s->indexMin = 0; // redundante
             while (!s->finalizado && p->estado == adjudicado) {
                 nWaitCondition(p->cond);
             }
