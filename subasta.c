@@ -75,6 +75,7 @@ int ofrecer(Subasta s, double precio){
             agregarPostor(&s->postor[s->count], precio, s);
             s->postor[s->count]->estado = adjudicado;
             indice = s->count;
+            nPrintf("  Creo un 'p' auxiliar\n");
             Postor p = s->postor[s->count];
             s->count++;
             s->min = precio;
