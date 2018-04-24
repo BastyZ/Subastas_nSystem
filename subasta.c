@@ -38,7 +38,7 @@ Subasta nuevaSubasta(int unidades) {
     return subasta;
 }
 
-void nuevoPostor(Postor p, int precio) {
+void nuevoPostor(Postor p, int precio, Subasta s) {
     p->estado = afuera;
     p->precio = precio;
     p->listo = 0;
@@ -78,7 +78,7 @@ int ofrecer(Subasta s, double precio){
         // La subasta sigue activa
         if (s->count == 0) { // Primer oferente, entramos al toque
             nPrintf("Soy el primer oferente\n");
-            agregarPostor(s->postor[s->count], precio);
+            agregarPostor(s->postor[s->count], precio, s);
             s->postor[s->count]->estado = adjudicado;
             Postor p = s->postor[s->count];
             s->count++;
