@@ -25,13 +25,13 @@ typedef struct subasta {
 // otras funciones que necesite.
 
 Subasta nuevaSubasta(int unidades) {
-    Subasta subasta = nMalloc(sizeof(*subasta));
+    Subasta subasta = (Subasta)nMalloc(sizeof(*subasta));
     subasta->monitor = nMakeMonitor();
     subasta->finalizado = 0;
     subasta->unidades = unidades;
     subasta->count = 0;
     subasta->indexMin = 0;
-    subasta->postor = nMalloc(unidades*sizeof(Postor));
+    subasta->postor = (Postor*)nMalloc(unidades*sizeof(Postor));
     return subasta;
 }
 
@@ -110,7 +110,7 @@ int ofrecer(Subasta s, double precio){
                     Postor p = &s->postor[s->indexMin];
                     p->estado = afuera;
                     nPrintf("  Llamo al quese va\n");
-                    nSignalCondition(&p->cond);
+                    nSignalCondition(p->cond);
                     nPrintf("  Llamé al wn que se vá\n");
                     // se adjudica un elemento poniendose en el lugar del minimo
                     agregarPostor(&s->postor[s->indexMin], precio, s);
