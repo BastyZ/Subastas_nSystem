@@ -49,23 +49,23 @@ int test1(int print_msg) {
   nPrintf("inicio test 1");
   Subasta s= nuevaSubasta(0);
   nTask pedro= nEmitTask(aleatorio, s, print_msg, "pedro", 1);
-  nTask juan= nEmitTask(aleatorio, s, print_msg, "juan", 3);
-  nTask diego= nEmitTask(aleatorio, s, print_msg, "diego", 4);
-  nTask pepe= nEmitTask(aleatorio, s, print_msg, "pepe", 2);
   if (nWaitTask(pedro))
-    nFatalError("test1", "pedro debio perder con 1\n");
+    nFatalError("test1", "pedro no debio entrar\n");
+  nTask juan= nEmitTask(aleatorio, s, print_msg, "juan", 3);
+  if (nWaitTask(juan))
+    nFatalError("test1", "juano no debio entrar\n");
+  nTask diego= nEmitTask(aleatorio, s, print_msg, "diego", 4);
+  if (nWaitTask(diego))
+    nFatalError("test1", "diego no debio entrar\n");
+  nTask pepe= nEmitTask(aleatorio, s, print_msg, "pepe", 2);
   if (nWaitTask(pepe))
-    nFatalError("test1", "pepe debio perder con 2\n");
+    nFatalError("test1", "pepe no debio entrar\n");
   int u;
   int recaud= adjudicar(s, &u);
   if (recaud!=0)
     nFatalError("test1", "La recaudacion debio ser 0 y no %d\n", recaud);
   if (u!=0)
     nFatalError("test1", "Quedaron %d unidades sin vender\n", u);
-  if (nWaitTask(juan))
-    nFatalError("nMain", "juan debio perder con 6\n");
-  if (nWaitTask(diego))
-    nFatalError("nMain", "diego debio perder con 4\n");
   if (print_msg>0)
     nPrintf("El monto recaudado es %d y quedaron %d unidades sin vender\n",
             recaud, u);
