@@ -115,6 +115,7 @@ int ofrecer(Subasta s, double precio){
                     // Hecho al minimo del arreglo
                     Postor p = &s->postor[s->indexMin];
                     p->estado = afuera;
+                    nPrintf("  Llamo al quese va\n");
                     nSignalCondition(p->cond);
                     nPrintf("  Llamé al wn que se vá\n");
                     // se adjudica un elemento poniendose en el lugar del minimo
