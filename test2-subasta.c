@@ -65,38 +65,27 @@ int test1(int print_msg) {
 }
 
 int test2(int print_msg) {
-  Subasta s= nuevaSubasta(3);
-  nTask ana= nEmitTask(oferente, s, print_msg, "ana", 7);
-  if (print_msg>=0)
-    nSleep(1000);
-  nTask maria= nEmitTask(oferente, s, print_msg, "maria", 3);
-  if (print_msg>=0)
-    nSleep(1000);
-  nTask ximena= nEmitTask(oferente, s, print_msg, "ximena", 4);
-  if (print_msg>=0)
-    nSleep(1000);
-  nTask erika= nEmitTask(oferente, s, print_msg, "erika", 5);
-  if (print_msg>=0)
-    nSleep(1000);
-  if (nWaitTask(maria))
-    nFatalError("nMain", "maria debio perder con 3\n");
-  nTask sonia= nEmitTask(oferente, s, print_msg, "sonia", 6);
-  if (print_msg>=0)
-    nSleep(1000);
-  if (nWaitTask(ximena))
-    nFatalError("nMain", "ximena debio perder con 4\n");
+  nPrintf("inicio test 1");
+  Subasta s= nuevaSubasta(2);
+  nTask pedro= nEmitTask(aleatorio, s, print_msg, "pedro", 1);
+  nTask juan= nEmitTask(aleatorio, s, print_msg, "juan", 3);
+  nTask diego= nEmitTask(aleatorio, s, print_msg, "diego", 4);
+  nTask pepe= nEmitTask(aleatorio, s, print_msg, "pepe", 2);
+  if (nWaitTask(pedro))
+    nFatalError("test1", "pedro debio perder con 1\n");
+  if (nWaitTask(pepe))
+    nFatalError("test1", "pepe debio perder con 2\n");
   int u;
   int recaud= adjudicar(s, &u);
-  if (recaud!=18)
+  nTask basty = nEmitTask(aleatorio, s, print_msg, "basty", 2);
+  if (recaud!=7)
     nFatalError("test1", "La recaudacion debio ser 7 y no %d\n", recaud);
   if (u!=0)
     nFatalError("test1", "Quedaron %d unidades sin vender\n", u);
-  if (!nWaitTask(ana))
-    nFatalError("nMain", "ana debio ganar con 7\n");
-  if (!nWaitTask(erika))
-    nFatalError("nMain", "erika debio ganar con 5\n");
-  if (!nWaitTask(sonia))
-    nFatalError("nMain", "sonia debio ganar con 6\n");
+  if (!nWaitTask(juan))
+    nFatalError("nMain", "juan debio ganar con 6\n");
+  if (!nWaitTask(diego))
+    nFatalError("nMain", "diego debio perder con 4\n");
   if (print_msg>0)
     nPrintf("El monto recaudado es %d y quedaron %d unidades sin vender\n",
             recaud, u);
