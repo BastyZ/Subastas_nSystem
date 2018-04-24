@@ -70,6 +70,7 @@ int ofrecer(Subasta s, double precio){
         // La subasta sigue activa
         if (s->count == 0) { // Primer oferente, entramos al toque
             nPrintf("Soy el primer oferente\n");
+            nPrintf(" le paso algo del tipo %d\n", s->postor[s->count]);
             agregarPostor(s->postor[s->count], precio, s);
             s->postor[s->count]->estado = adjudicado;
             indice = s->count;
