@@ -28,14 +28,18 @@ typedef struct subasta {
 // otras funciones que necesite.
 
 Subasta nuevaSubasta(int unidades){
+    nPrintf("entra a subasta");
     Subasta subasta = nMalloc(sizeof(*subasta));
+    nPrintf("asigna espacio a la subasta");
     subasta->monitor = nMakeMonitor();
     subasta->finalizado = 0;
     subasta->unidades = unidades;
     subasta->count = 0;
     subasta->indexMin = 0;
+    nPrintf("inicia arreglo");
     Postor postor1 = nMalloc(sizeof(*postor1));
     subasta->postor[unidades] = nMalloc(unidades*sizeof(*postor1));
+    nPrintf("termina arreglo");
     return subasta;
 }
 
