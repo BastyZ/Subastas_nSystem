@@ -149,7 +149,7 @@ int ofrecer(Subasta s, double precio){
 }
 
 double colecta(Subasta s,int index) {
-    int precio = s->precio[index];
+    double precio = s->precio[index];
     nSignalCondition(s->cond[index]);
     return precio;
 }
@@ -159,7 +159,7 @@ double adjudicar(Subasta s, int *punidades){
     nEnter(s->monitor);
     *punidades = s->unidades - s->count;
     s->finalizado = 1; // convertirlo a true
-    int ganancia;
+    double ganancia;
     for (int i=0; i < s->count; i++){
         ganancia = ganancia + colecta(s, i);
     }
