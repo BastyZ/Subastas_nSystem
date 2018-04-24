@@ -27,7 +27,7 @@ typedef struct subasta {
 // Programe aca las funciones nuevaSubasta, ofrecer y adjudicar, mas
 // otras funciones que necesite.
 
-Subasta nuevaSubasta(int unidades){
+Subasta nuevaSubasta(int unidades) {
     Subasta subasta = nMalloc(sizeof(*subasta));
     subasta->monitor = nMakeMonitor();
     subasta->finalizado = 0;
@@ -79,6 +79,7 @@ int ofrecer(Subasta s, double precio){
         nEnter(s->monitor); // Entra al monitor
         // La subasta sigue activa
         if (s->count == 0) { // Primer oferente, entramos al toque
+            nPrintf("Soy el primer oferente\n");
             p->estado = adjudicado;
             s->postor[s->count++] = p;
             s->min;
@@ -87,6 +88,7 @@ int ofrecer(Subasta s, double precio){
             }
         } else {
             if (s->count < s->unidades) { // primeros n oferentes
+                nPrintf("No soy el primer oferente\n");
                 p->estado = adjudicado;
                 s->postor[s->count++] = p;
                 // se vuelve a establecer el mínimo
@@ -101,6 +103,7 @@ int ofrecer(Subasta s, double precio){
                     nWaitCondition(p->cond);
                 }
             } else {
+                nPrintf("la subasta está llena\n");
                 if (comparaPrecio(s, p)) {
                     // La oferta es muy pequeña, se rechaza
                     return 0;
