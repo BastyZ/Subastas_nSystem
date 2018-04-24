@@ -104,6 +104,9 @@ int ofrecer(Subasta s, double precio){
                     // La oferta es muy pequeña, se rechaza
                     return 0;
                 } else {
+                    // Hecho al minimo del arreglo
+                    s->postor[s->indexMin]->estado = afuera;
+                    nSignalCondition(s->postor[s->indexMin]->cond);
                     // se adjudica un elemento poniendose en el lugar del minimo
                     agregarPostor(s->postor[s->indexMin], precio, s);
                     s->postor[s->indexMin]->estado = adjudicado;
@@ -127,11 +130,6 @@ int ofrecer(Subasta s, double precio){
         }
         // Si llegan hasta acá, o termino la subasta o los sacaron
         if (!s->finalizado) return 0; // No ha terminado aún nos sacaron
-        // Terminó y adjudica elemento
-        if (s->finalizado && p->estado == adjudicado) return 1;
-        // Acá nos aseguramos de que si nos echaron retornamos 0
-        if (p->listo && p->estado == afuera) return 0;
-        // Para lo demás rechazamos
         return 0;
     }
 }
