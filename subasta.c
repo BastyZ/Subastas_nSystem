@@ -91,13 +91,17 @@ int ofrecer(Subasta s, double precio){
                 nPrintf("No soy el primer oferente\n");
                 p->estado = adjudicado;
                 s->postor[s->count++] = p;
+                nPrintf("    Entré a la subasta\n");
                 // se vuelve a establecer el mínimo
                 for (int i = 0; i < s->count; i++){
+                    nPrintf("    Comienzo a buscar el menor\n");
                     Postor aux = s->postor[i];
                     if(aux->precio < s->min){
+                        nPrintf("    Los cambio\n");
                         s->min = aux->precio;
                         s->indexMin = i;
                     }
+                    nPrintf("    Y listo\n");
                 }
                 while (!s->finalizado && p->estado == adjudicado) {
                     nWaitCondition(p->cond);
