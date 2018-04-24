@@ -44,6 +44,7 @@ void agregarPostor(Postor p, int precio, Subasta s) {
     p->precio = precio;
     p->listo = 0;
     p->cond = nMakeCondition(s->monitor);
+    nPrintf("  Termino de agregar a este wn\n");
 }
 
 int comparaPrecio(Subasta s, double precio) {
