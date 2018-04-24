@@ -38,9 +38,10 @@ Subasta nuevaSubasta(int unidades) {
     return subasta;
 }
 
-void agregarPostor(Postor p, int precio, Subasta s) {
+void agregarPostor(Postor p, double precio, Subasta s) {
     nPrintf("  Agrego a un este wn a la subasta\n");
     p->estado = afuera;
+    nPrintf("  Estado agregado\n");
     p->precio = precio;
     p->listo = 0;
     nPrintf("  Falta solo la condicion\n");
