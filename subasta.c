@@ -119,7 +119,6 @@ int ofrecer(Subasta s, double precio){
                     // se adjudica un elemento poniendose en el lugar del minimo
                     agregarPostor(s->postor[s->indexMin], precio, s);
                     s->postor[s->indexMin]->estado = adjudicado;
-                    Postor p = &s->postor[s->indexMin];
                     indice = s->count;
                     s->count++;
                     // volvemos e elegir el mínimo
