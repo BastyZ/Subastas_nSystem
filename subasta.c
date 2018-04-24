@@ -38,7 +38,7 @@ Subasta nuevaSubasta(int unidades) {
     return subasta;
 }
 
-void nuevoPostor(Postor p, int precio, Subasta s) {
+void agregarPostor(Postor p, int precio, Subasta s) {
     p->estado = afuera;
     p->precio = precio;
     p->listo = 0;
