@@ -49,17 +49,9 @@ int test1(int print_msg) {
   nPrintf("inicio test 1");
   Subasta s= nuevaSubasta(0);
   nTask pedro= nEmitTask(aleatorio, s, print_msg, "pedro", 1);
-  if (nWaitTask(pedro))
-    nFatalError("test1", "pedro no debio entrar\n");
   nTask juan= nEmitTask(aleatorio, s, print_msg, "juan", 3);
-  if (nWaitTask(juan))
-    nFatalError("test1", "juano no debio entrar\n");
   nTask diego= nEmitTask(aleatorio, s, print_msg, "diego", 4);
-  if (nWaitTask(diego))
-    nFatalError("test1", "diego no debio entrar\n");
   nTask pepe= nEmitTask(aleatorio, s, print_msg, "pepe", 2);
-  if (nWaitTask(pepe))
-    nFatalError("test1", "pepe no debio entrar\n");
   int u;
   int recaud= adjudicar(s, &u);
   if (recaud!=0)
