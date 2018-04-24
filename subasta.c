@@ -91,6 +91,7 @@ int ofrecer(Subasta s, double precio){
                 nPrintf("No soy el primer oferente\n");
                 agregarPostor(s->postor[s->count], precio, s);
                 s->postor[s->count]->estado = adjudicado;
+                Postor p = s->postor[s->count];
                 s->count++;
                 nPrintf("    Entré a la subasta\n");
                 // se vuelve a establecer el mínimo
