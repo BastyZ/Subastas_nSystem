@@ -161,7 +161,8 @@ double adjudicar(Subasta s, int *punidades){
     s->finalizado = 1; // convertirlo a true
     int ganancia;
     for (int i=0; i < s->count; i++){
-        ganancia += colecta(s, i);
+        ganancia = ganancia + colecta(s, i);
     }
     nExit(s->monitor);
+    return ganancia;
 }
