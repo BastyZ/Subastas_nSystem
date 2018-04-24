@@ -86,7 +86,7 @@ int ofrecer(Subasta s, double precio){
         } else {
             if (s->count < s->unidades) { // primeros n oferentes
                 nPrintf("No soy el primer oferente\n");
-                agregarPostor(s->postor[s->count], precio, s);
+                agregarPostor(&s->postor[s->count], precio, s);
                 s->postor[s->count]->estado = adjudicado;
                 Postor p = s->postor[s->count];
                 indice = s->count;
@@ -113,7 +113,7 @@ int ofrecer(Subasta s, double precio){
                 } else {
                     // Hecho al minimo del arreglo
                     s->postor[s->indexMin]->estado = afuera;
-                    nSignalCondition(s->postor[s->indexMin]->cond);
+                    nSignalCondition(&s->postor[s->indexMin]->cond);
                     // se adjudica un elemento poniendose en el lugar del minimo
                     agregarPostor(s->postor[s->indexMin], precio, s);
                     s->postor[s->indexMin]->estado = adjudicado;
