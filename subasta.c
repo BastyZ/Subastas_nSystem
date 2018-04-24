@@ -21,7 +21,7 @@ typedef struct subasta {
     nMonitor monitor;
     double min;
     int indexMin;
-    int *postor; // Lista de postores que se adjudicarían unidades
+    Postor *postor; // Lista de postores que se adjudicarían unidades
 }*Subasta;
 
 // Programe aca las funciones nuevaSubasta, ofrecer y adjudicar, mas
@@ -38,12 +38,11 @@ Subasta nuevaSubasta(int unidades) {
     return subasta;
 }
 
-Postor nuevoPostor(Subasta s, int precio) {
+void nuevoPostor(Postor p, int precio) {
     p->estado = afuera;
     p->precio = precio;
     p->listo = 0;
     p->cond = nMakeCondition(s->monitor);
-    return p;
 }
 
 int comparaPrecio(Subasta s, Postor p) {
@@ -70,7 +69,7 @@ void cambiar(Subasta s, Postor p) {
 int ofrecer(Subasta s, double precio){
     // oferta un precio con la intencion de comprar elementos
     // Subasta s y Postor p
-    Postor p = nuevoPostor(s, precio);
+    // Postor p = nuevoPostor(s->postor[s->count], precio);
     if (s->finalizado) {
         // La subasta ha terminado, por lo que no lo intentamos
         return 0;
@@ -79,8 +78,10 @@ int ofrecer(Subasta s, double precio){
         // La subasta sigue activa
         if (s->count == 0) { // Primer oferente, entramos al toque
             nPrintf("Soy el primer oferente\n");
-            p->estado = adjudicado;
-            s->postor[s->count++] = p;
+            agregarPostor(s->postor[s->count], precio);
+            s->postor[s->count]->estado = adjudicado;
+            Postor p = s->postor[s->count];
+            s->count++;
             s->min;
             while (!s->finalizado && p->estado == adjudicado) {
                 nWaitCondition(p->cond);
