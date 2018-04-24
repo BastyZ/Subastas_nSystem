@@ -46,7 +46,7 @@ Subasta nuevaSubasta(int unidades) {
 void agregarPostor(int index, double precio, Subasta s) {
     s->estado[index] = afuera;
     s->precio[index] = precio;
-    p->cond[index] = nMakeCondition(s->monitor);
+    s->cond[index] = nMakeCondition(s->monitor);
 }
 
 int comparaPrecio(Subasta s, double precio) {
