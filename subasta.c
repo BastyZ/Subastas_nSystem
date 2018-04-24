@@ -37,9 +37,9 @@ Subasta nuevaSubasta(int unidades) {
     subasta->count = 0;
     subasta->indexMin = 0;
     // subasta->postor = (Postor*)nMalloc(unidades*sizeof(Postor));
-    subasta->estado = (int)nMalloc(unidades* sizeof(int));
-    subasta->precio = (double)nMalloc(unidades* sizeof(double));
-    subasta->cond = (nCondition)nMalloc(unidades* sizeof(nCondition));
+    subasta->estado = (int*)nMalloc(unidades* sizeof(int));
+    subasta->precio = (double*)nMalloc(unidades* sizeof(double));
+    subasta->cond = (nCondition*)nMalloc(unidades* sizeof(nCondition));
     return subasta;
 }
 
