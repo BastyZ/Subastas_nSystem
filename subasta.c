@@ -78,8 +78,8 @@ int ofrecer(Subasta s, double precio){
             s->indexMin = 0; // redundante
             nPrintf("Me voy a dormir\n");
             while (!s->finalizado && p->estado == adjudicado) {
-                nPrintf("-- Desperte 1\n");
                 nWaitCondition(p->cond);
+                nPrintf("-- Desperte 1\n");
             }
         } else {
             if (s->count < s->unidades) { // primeros n oferentes
@@ -102,8 +102,8 @@ int ofrecer(Subasta s, double precio){
                     nPrintf("    Y listo\n");
                 }
                 while (!s->finalizado && p->estado == adjudicado) {
-                    nPrintf("-- Desperte 2\n");
                     nWaitCondition(p->cond);
+                    nPrintf("-- Desperte 2\n");
                 }
             } else {
                 nPrintf("la subasta está llena\n");
@@ -133,8 +133,8 @@ int ofrecer(Subasta s, double precio){
                         nPrintf("    Y listo\n");
                     }
                     while (!s->finalizado && p->estado == adjudicado) {
-                        nPrintf("-- Desperte 3\n");
                         nWaitCondition(p->cond);
+                        nPrintf("-- Desperte 3\n");
                     }
                 }
             }
