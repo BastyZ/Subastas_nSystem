@@ -120,8 +120,9 @@ int ofrecer(Subasta s, double precio){
                     agregarPostor(s->indexMin, precio, s);
                     nPrintf("  Me agrego\n");
                     s->estado[s->indexMin] = adjudicado;
-                    nPrintf("Modifico el indice\n");
+                    nPrintf("Modifico el indice y precio\n");
                     indice = s->indexMin;
+                    s->min = s->precio[s->indexMin];
                     s->count = s->unidades;
                     // volvemos e elegir el mínimo
                     for (int i = 0; i < s->unidades; i++){
