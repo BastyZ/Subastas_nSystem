@@ -117,7 +117,7 @@ int ofrecer(Subasta s, double precio){
                     p->estado = afuera;
                     nPrintf("  Llamo al quese va\n");
                     nCondition cond_aux = p->cond;
-                    nPrintf("  Y a la condicion d%\n", p->cond);
+                    nPrintf("  Y a la condicion i%\n", p->cond);
                     nSignalCondition(cond_aux);
                     nPrintf("  Llamé al wn que se vá\n");
                     // se adjudica un elemento poniendose en el lugar del minimo
