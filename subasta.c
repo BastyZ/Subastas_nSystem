@@ -1,14 +1,11 @@
 #include <nSystem.h>
 #include "subasta.h"
 
-typedef enum {
-    adjudicado, afuera // Adjudicado: Logra quedarse con producto
-} Estado;
+int adjudicado = 1, afuera = 0; // Adjudicado: Logra quedarse con producto
 
 typedef struct postor{
-    Estado estado;
+    int estado;
     double precio;
-    int listo; // 0 => No está listo
     nCondition cond;
 } *Postor;
 
@@ -41,7 +38,6 @@ Subasta nuevaSubasta(int unidades) {
 void agregarPostor(Postor p, double precio, Subasta s) {
     p->estado = afuera;
     p->precio = precio;
-    p->listo = 0;
     p->cond = nMakeCondition(s->monitor);
 }
 
@@ -77,10 +73,8 @@ int ofrecer(Subasta s, double precio){
             s->min = precio;
             s->indexMin = 0; // redundante
             nPrintf("Me voy a dormir\n");
-            while (!s->finalizado && p->estado == adjudicado) {
-                nWaitCondition(p->cond);
-                nPrintf("-- Desperte 1\n");
-            }
+            nWaitCondition(p->cond);
+            nPrintf("-- Desperte 1\n");
         } else {
             if (s->count < s->unidades) { // primeros n oferentes
                 nPrintf("No soy el primer oferente\n");
@@ -101,10 +95,8 @@ int ofrecer(Subasta s, double precio){
                     }
                     nPrintf("    Y listo\n");
                 }
-                while (!s->finalizado && p->estado == adjudicado) {
-                    nWaitCondition(p->cond);
-                    nPrintf("-- Desperte 2\n");
-                }
+                nWaitCondition(p->cond);
+                nPrintf("-- Desperte 2\n");
             } else {
                 nPrintf("la subasta está llena\n");
                 if (comparaPrecio(s, precio)) {
@@ -137,16 +129,14 @@ int ofrecer(Subasta s, double precio){
                         }
                         nPrintf("    Y listo\n");
                     }
-                    while (!s->finalizado && p->estado == adjudicado) {
-                        nWaitCondition(p->cond);
-                        nPrintf("-- Desperte 3\n");
-                    }
+                    nWaitCondition(p->cond);
+                    nPrintf("-- Desperte 3\n");
                 }
             }
         }
         // Si llegan hasta acá, o termino la subasta o los sacaron
-        if (!s->finalizado) return 0; // No ha terminado aún nos sacaron
-        return 0;
+        if (s->finalizado) return 0; // No ha terminado aún nos sacaron
+        return 1;
     }
 }
 
