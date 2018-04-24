@@ -76,9 +76,6 @@ int ofrecer(Subasta s, double precio){
             nPrintf("Agregue al postor\n");
             Postor p = &s->postor[s->count];
             p->estado = adjudicado;
-            nPrintf("Lo agrego denuevo\n");
-            s->postor[s->count]->estado = adjudicado;
-            nPrintf("            hi!\n");
             nPrintf("Le cambio el estado al nuevo postor\n");
             indice = s->count;
             nPrintf("  Creo un 'p' auxiliar\n");
