@@ -117,7 +117,7 @@ int ofrecer(Subasta s, double precio){
                     p->estado = afuera;
                     nSignalCondition(p->cond);
                     // se adjudica un elemento poniendose en el lugar del minimo
-                    agregarPostor(s->postor[s->indexMin], precio, s);
+                    agregarPostor(&s->postor[s->indexMin], precio, s);
                     s->postor[s->indexMin]->estado = adjudicado;
                     indice = s->count;
                     s->count++;
