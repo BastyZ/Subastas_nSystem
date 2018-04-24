@@ -39,6 +39,7 @@ Subasta nuevaSubasta(int unidades) {
 }
 
 void agregarPostor(Postor p, int precio, Subasta s) {
+    nPrintf("  Agrego a un este wn a la subasta\n");
     p->estado = afuera;
     p->precio = precio;
     p->listo = 0;
@@ -74,6 +75,7 @@ int ofrecer(Subasta s, double precio){
             s->count++;
             s->min = precio;
             s->indexMin = 0; // redundante
+            nPrintf("Me voy a dormir\n");
             while (!s->finalizado && p->estado == adjudicado) {
                 nWaitCondition(p->cond);
             }
