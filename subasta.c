@@ -45,25 +45,13 @@ void nuevoPostor(Postor p, int precio, Subasta s) {
     p->cond = nMakeCondition(s->monitor);
 }
 
-int comparaPrecio(Subasta s, Postor p) {
+int comparaPrecio(Subasta s, double precio) {
     // Devuelve 0 si no adjudica elementos, 1 si lo hace
-    if (s->min <= p->precio) {
+    if (s->min <= precio) {
         return 0;
     } else {
         return 1;
     }
-}
-
-void cambiar(Subasta s, Postor p) {
-    // Tomamos al más pequeño, lo sacamos y reemplazamos en ese lugar
-    nPrintf("Entro a cambiar\n");
-    Postor aux = s->postor[s->indexMin];
-    aux->estado = afuera;
-    aux->listo = 1;
-    // notifico al que saco de que lo saqué
-    nSignalCondition(aux->cond);
-    p->estado = adjudicado;
-    s->postor[s->indexMin] = p;
 }
 
 int ofrecer(Subasta s, double precio){
@@ -97,9 +85,9 @@ int ofrecer(Subasta s, double precio){
                 // se vuelve a establecer el mínimo
                 for (int i = 0; i < s->count; i++){
                     nPrintf("    Comienzo a buscar el menor\n");
-                    if( s->postor[s->count]->precio < s->min){
+                    if( s->postor[i]->precio < s->min){
                         nPrintf("    Los cambio\n");
-                        s->min = s->postor[s->count]->precio;
+                        s->min = s->postor[i]->precio;
                         s->count++;
                         s->indexMin = i;
                     }
@@ -110,18 +98,22 @@ int ofrecer(Subasta s, double precio){
                 }
             } else {
                 nPrintf("la subasta está llena\n");
-                if (comparaPrecio(s, p)) {
+                if (comparaPrecio(s, precio)) {
                     // La oferta es muy pequeña, se rechaza
                     return 0;
                 } else {
-                    // se adjudica un elemento
-                    p->estado = adjudicado;
-                    cambiar(s, p);
+                    // se adjudica un elemento poniendose en el lugar del minimo
+                    agregarPostor(s->postor[s->indexMin], precio, s);
+                    s->postor[s->indexMin]->estado = adjudicado;
+                    Postor p = s->postor[s->indexMin];
+                    s->count++;
                     // volvemos e elegir el mínimo
                     for (int i = 0; i < s->count; i++) {
-                        Postor aux = s->postor[i];
-                        if(aux->precio < s->min){
-                            s->min = aux->precio;
+                        nPrintf("    Comienzo a buscar el menor\n");
+                        if( s->postor[i]->precio < s->min){
+                            nPrintf("    Los cambio\n");
+                            s->min = s->postor[i]->precio;
+                            s->count++;
                             s->indexMin = i;
                         }
                     }
