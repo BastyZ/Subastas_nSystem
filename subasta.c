@@ -59,10 +59,11 @@ int comparaPrecio(Subasta s, Postor p) {
 
 void cambiar(Subasta s, Postor p) {
     // Tomamos al más pequeño, lo sacamos y reemplazamos en ese lugar
-    s->postor[s->indexMin]->estado = afuera;
-    s->postor[s->indexMin]->listo = 1;
+    Postor aux = s->postor[s->indexMin];
+    aux->estado = afuera;
+    aux->listo = 1;
     // notifico al que saco de que lo saqué
-    nSignalCondition(s->postor[s->indexMin]->cond);
+    nSignalCondition(aux->cond);
     p->estado = adjudicado;
     s->postor[s->indexMin] = p;
 }
@@ -100,7 +101,7 @@ int ofrecer(Subasta s, double precio){
                     nWaitCondition(p->cond);
                 }
             } else {
-                if (!comparaPrecio(s, p)) {
+                if (comparaPrecio(s, p)) {
                     // La oferta es muy pequeña, se rechaza
                     return 0;
                 } else {
