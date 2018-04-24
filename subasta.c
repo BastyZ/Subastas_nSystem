@@ -34,7 +34,7 @@ Subasta nuevaSubasta(int unidades) {
     subasta->unidades = unidades;
     subasta->count = 0;
     subasta->indexMin = 0;
-    subasta->postor = nMalloc(unidades*sizeof(Postor));
+    subasta->postor = nMalloc(unidades*sizeof(*Postor));
     return subasta;
 }
 
