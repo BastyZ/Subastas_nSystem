@@ -46,6 +46,7 @@ int oferente(Subasta s, int print_msg, char *nom, int oferta) {
 }
 
 int test1(int print_msg) {
+  nPrintf("inicio test 1");
   Subasta s= nuevaSubasta(2);
   nTask pedro= nEmitTask(aleatorio, s, print_msg, "pedro", 1);
   nTask juan= nEmitTask(aleatorio, s, print_msg, "juan", 3);
