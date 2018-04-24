@@ -82,7 +82,8 @@ int ofrecer(Subasta s, double precio){
             nPrintf("Me voy a dormir\n");
             nWaitCondition(s->cond[indice]);
             nPrintf("-- Desperte 1\n");
-            if (s->finalizado) return 0; // No ha terminado aún nos sacaron
+            if (!s->finalizado) {return 0;} // No ha terminado aún nos sacaron
+            else{ return 1;}
         } else {
             if (s->count < s->unidades) { // primeros n oferentes
                 nPrintf("No soy el primer oferente\n");
@@ -103,7 +104,8 @@ int ofrecer(Subasta s, double precio){
                 }
                 nWaitCondition(s->cond[indice]);
                 nPrintf("-- Desperte 2\n");
-                if (s->finalizado) return 0; // No ha terminado aún nos sacaron
+                if (!s->finalizado) {return 0;} // No ha terminado aún nos sacaron
+                else{ return 1;}
             } else {
                 nPrintf("la subasta está llena\n");
                 if (comparaPrecio(s, precio)) {
@@ -136,13 +138,14 @@ int ofrecer(Subasta s, double precio){
                     }
                     nWaitCondition(s->cond[indice]);
                     nPrintf("-- Desperte 3\n");
-                    if (s->finalizado) return 0; // No ha terminado aún nos sacaron
+                    if (!s->finalizado) {return 0;} // No ha terminado aún nos sacaron
+                    else{ return 1;}
                 }
             }
         }
         // Si llegan hasta acá, o termino la subasta o los sacaron
-        if (s->finalizado) return 0; // No ha terminado aún nos sacaron
-        return 1;
+        if (!s->finalizado) {return 0;} // No ha terminado aún nos sacaron
+        else{ return 1;}
     }
 }
 
