@@ -96,6 +96,7 @@ int ofrecer(Subasta s, double precio){
                 for (int i = 0; i < s->count; i++){
                     nPrintf("    Comienzo a buscar el menor\n");
                     Postor aux = s->postor[i];
+                    nPrintf("    Creé un auxiliar y comparo\n");
                     if(aux->precio < s->min){
                         nPrintf("    Los cambio\n");
                         s->min = aux->precio;
