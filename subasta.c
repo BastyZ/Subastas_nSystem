@@ -30,7 +30,7 @@ typedef struct subasta {
 Subasta nuevaSubasta(int unidades){
     nPintf("inicio creacion de subasta");
     Subasta subasta = nMalloc(sizeof(*subasta));
-    nPrint("asignado espacio")
+    nPrint("asignado espacio");
     subasta->monitor = nMakeMonitor();
     subasta->finalizado = 0;
     subasta->unidades = unidades;
