@@ -71,15 +71,12 @@ int ofrecer(Subasta s, double precio){
         // La subasta sigue activa
         if (s->count == 0) { // Primer oferente, entramos al toque
             nPrintf("Soy el primer oferente\n");
-            nPrintf("le paso algo del tipo %d\n", s->postor[s->count]);
             agregarPostor(&s->postor[s->count], precio, s);
-            nPrintf("Agregue al postor\n");
             Postor p = &s->postor[s->count];
             p->estado = adjudicado;
             nPrintf("Le cambio el estado al nuevo postor\n");
             indice = s->count;
             nPrintf("  Creo un 'p' auxiliar\n");
-            // Postor p = s->postor[s->count];
             s->count++;
             s->min = precio;
             s->indexMin = 0; // redundante
@@ -91,17 +88,18 @@ int ofrecer(Subasta s, double precio){
             if (s->count < s->unidades) { // primeros n oferentes
                 nPrintf("No soy el primer oferente\n");
                 agregarPostor(&s->postor[s->count], precio, s);
-                s->postor[s->count]->estado = adjudicado;
-                Postor p = s->postor[s->count];
+                Postor p = &s->postor[s->count];
+                p->estado = adjudicado;
                 indice = s->count;
                 s->count++;
                 nPrintf("    Entré a la subasta\n");
                 // se vuelve a establecer el mínimo
                 for (int i = 0; i < s->count; i++){
                     nPrintf("    Comienzo a buscar el menor\n");
-                    if( s->postor[i]->precio < s->min){
+                    Postor aux = s->postor[i];
+                    if( aux->precio < s->min){
                         nPrintf("    Los cambio\n");
-                        s->min = s->postor[i]->precio;
+                        s->min = aux->precio;
                         s->indexMin = i;
                     }
                     nPrintf("    Y listo\n");
