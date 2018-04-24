@@ -59,7 +59,7 @@ int comparaPrecio(Subasta s, Postor p) {
 
 void cambiar(Subasta s, Postor p) {
     // Tomamos al más pequeño, lo sacamos y reemplazamos en ese lugar
-    nPrintf("Entro a cambiar\n")
+    nPrintf("Entro a cambiar\n");
     Postor aux = s->postor[s->indexMin];
     aux->estado = afuera;
     aux->listo = 1;
