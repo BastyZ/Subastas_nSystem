@@ -82,7 +82,7 @@ int ofrecer(Subasta s, double precio){
             nPrintf("Le cambio el estado al nuevo postor\n");
             indice = s->count;
             nPrintf("  Creo un 'p' auxiliar\n");
-            Postor p = s->postor[s->count];
+            // Postor p = s->postor[s->count];
             s->count++;
             s->min = precio;
             s->indexMin = 0; // redundante
